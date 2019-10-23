@@ -14,6 +14,7 @@ class RootController {
 		ResourceSupport rootResource = new ResourceSupport();
 		rootResource.add(linkTo(methodOn(EmployeeController.class).all()).withRel("employees"));
 		rootResource.add(linkTo(methodOn(OrderController.class).all()).withRel("orders"));
+		rootResource.add(linkTo(methodOn(CustomerController.class).all()).withRel("customers"));
 		return rootResource;
 	}
 
