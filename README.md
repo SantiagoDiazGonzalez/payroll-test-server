@@ -1,2 +1,2 @@
 # payroll-test-server
- YEA PERDONEN KAMEHAMEHA
+https://ci.appveyor.com/api/projects/status/rcxi0gbblgn77bul?svg=true
