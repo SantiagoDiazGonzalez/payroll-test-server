@@ -8,7 +8,9 @@ node {
    stage('Build') {
       withEnv(["MVN_HOME=$mvnHome"]) {
         sh 'cd server && "$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean package'
-		customImage = docker.build("santiagodiazgonzalez/payroll-santiago")
+		dir('payroll/server') {
+		  customImage = docker.build("santiagodiazgonzalez/payroll-santiago")
+		}
       }
    }
    stage('Sonar Cloud') {
