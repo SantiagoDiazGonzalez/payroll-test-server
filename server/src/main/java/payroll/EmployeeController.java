@@ -35,9 +35,6 @@ class EmployeeController {
 		this.assembler = assembler;
 		this.orderAssembler = orderAssembler;
 	}
-	// end::constructor[]
-
-	// Aggregate root
 
 	@GetMapping("/employees")
 	Resources<Resource<Employee>> all() {
