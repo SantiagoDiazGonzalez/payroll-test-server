@@ -10,11 +10,9 @@ node {
       }
    }
    stage('SonarCloud') {
-	  withEnv(["MVN_HOME=$mvnHome"]) {
-	    withSonarQubeEnv('sonarcloud.io') {
-          sh 'cd server && "$MVN_HOME/bin/mvn" org.sonarsource.scanner.maven:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=c0c135e534e0350a8ef29df7ace8f9fd0a101771'
-	    }
-	  }
+	 withEnv(["MVN_HOME=$mvnHome"]) {
+	    sh 'cd server && "$MVN_HOME/bin/mvn" verify sonar:sonar -Dsonar.projectKey=SantiagoDiazGonzalez_payroll-test-server -Dsonar.organization=santiagodiazgonzalez -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=876af135544926d07b8504fbca77d79158032a3d -Dmaven.test.failure.ignore=true'
+	}
    }
    stage('Results') {
       archiveArtifacts 'server/target/*.jar'
