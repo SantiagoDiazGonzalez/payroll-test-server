@@ -17,10 +17,9 @@ node {
    }
    stage('Push Image') {
 	 docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-		dir('payroll/server') {
-		  customImage = docker.build("santiagodiazgonzalez/payroll-santiago")
-		  customImage.push()
-		}
+		sh 'cd server'
+		customImage = docker.build("santiagodiazgonzalez/payroll-santiago")
+		customImage.push()		
     }
    }
    stage('Results') {
