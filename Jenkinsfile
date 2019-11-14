@@ -26,9 +26,12 @@ node {
       //junit '**/target/surefire-reports/TEST-*.xml'
    }
    stage('Deploy') {
-     docker.withRegistry('', 'herokuCredentials') {
+     docker.withRegistry('', 'dockerhub') {
 	   sh 'docker tag santiagodiazgonzalez/payroll-santiago registry.heroku.com/rocky-brushlands-25964/web'
 	   sh 'docker push registry.heroku.com/rocky-brushlands-25964/web'
+	 }
+	 withRegistry('', 'herokuCredentials') {
+	   sh 'heroku container:release web --app=rocky-brushlands-25964'
 	 }
    }
 }
