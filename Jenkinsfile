@@ -1,5 +1,6 @@
 node {
    def mvnHome
+   def image
    stage('Preparation') {
       git 'https://github.com/SantiagoDiazGonzalez/payroll-test-server.git'
       mvnHome = tool 'M3'
@@ -7,7 +8,7 @@ node {
    stage('Build') {
       withEnv(["MVN_HOME=$mvnHome"]) {
         sh 'cd server && "$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean package'
-		docker.build("santiagodiazgonzalez/payroll-santiago")
+		image = docker.build("santiagodiazgonzalez/payroll-santiago")
       }
    }
    stage('Sonar Cloud') {
@@ -16,10 +17,9 @@ node {
 	}
    }
    stage('Push Image') {
-	withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'password', usernameVariable: 'user')]) {
-            sh 'docker login -u ${user} -p ${password}'
-            sh label: '', script: 'docker push santiagodiazgonzalez/payroll-santiago'
-        }
+     docker.withRegistry('', 'dockerhub') {
+	   image.push()
+	 }
    }
    stage('Results') {
       archiveArtifacts 'server/target/*.jar'
