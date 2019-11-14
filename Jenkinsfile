@@ -17,7 +17,7 @@ node {
    }
    stage('Push Image') {
 	withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'password', usernameVariable: 'user')]) {
-            sh 'docker login --username ${user} --password ${password}'
+            sh 'docker login -u ${user} -p ${password}'
             sh label: '', script: 'docker push santiagodiazgonzalez/payroll-santiago'
         }
    }
