@@ -26,8 +26,7 @@ node {
       //junit '**/target/surefire-reports/TEST-*.xml'
    }
    stage('Deploy') {
-     withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'password', usernameVariable: 'user')]) {
-	   sh 'docker logout'
+     withCredentials([usernamePassword(credentialsId: 'herokuCredentials', passwordVariable: 'password', usernameVariable: 'user')]) {
 	   sh 'docker login --username=_ --password=${password} registry.heroku.com'
 	   sh 'docker tag santiagodiazgonzalez/payroll-santiago registry.heroku.com/rocky-brushlands-25964/web'
 	   sh 'docker push registry.heroku.com/rocky-brushlands-25964/web'
