@@ -37,4 +37,5 @@ node {
       junit '**/target/surefire-reports/TEST-*.xml'
 	  junit 'server/src/test/payroll-test/output/result.xml'
    }
+   //comentario
 }
