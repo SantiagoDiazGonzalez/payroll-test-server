@@ -25,12 +25,11 @@ node {
       archiveArtifacts 'server/target/*.jar'
       junit '**/target/surefire-reports/TEST-*.xml'
    }
-   stage('Deploy') {
+   stage('Push to deploy') {
      withCredentials([usernamePassword(credentialsId: 'herokuCredentials', passwordVariable: 'password', usernameVariable: 'user')]) {
 	   sh 'docker login --username=_ --password=${password} registry.heroku.com'
 	   sh 'docker tag santiagodiazgonzalez/payroll-santiago registry.heroku.com/rocky-brushlands-25964/web'
 	   sh 'docker push registry.heroku.com/rocky-brushlands-25964/web'
-	   sh 'heroku container:release web --app=rocky-brushlands-25964'
     }
   }
 }
