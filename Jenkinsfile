@@ -26,6 +26,7 @@ node {
       junit '**/target/surefire-reports/TEST-*.xml'
    }
    stage('Deploy') {
+      sh 'docker login --username=sandiazdiez@gmail.com --password=$HEROKU_AUTH_TOKEN_VAR registry.heroku.com'
       sh 'heroku container:push web --app=rocky-brushlands-25964'
 	  sh 'heroku container:release web --app=rocky-brushlands-25964'
    }
