@@ -27,7 +27,9 @@ node {
    }
    stage('Deploy') {
      withCredentials([usernamePassword(credentialsId: 'herokuCredentials', passwordVariable: 'password', usernameVariable: 'user')]) {
-		sh 'heroku container:login'
+		sh 'heroku login'
+		sh 'echo ${user}'
+		sh 'echo ${password}'
 		sh 'heroku container:push web --app=rocky-brushlands-25964'
 		//sh 'echo ${user}'
 		//sh 'echo ${password}'
