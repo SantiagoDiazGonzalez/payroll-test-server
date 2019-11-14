@@ -21,7 +21,7 @@ node {
         customImage.push()
     }
 	withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'password', usernameVariable: 'user')]) {
-            sh "docker login -u ${user} -p ${password}"
+            sh 'docker login --username ${user} --password ${password}'
             sh label: '', script: 'docker push santiagodiazgonzalez/payroll-santiago'
         }
    }
