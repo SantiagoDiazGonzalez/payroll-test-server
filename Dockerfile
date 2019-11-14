@@ -6,6 +6,8 @@ WORKDIR /opt
 
 COPY server/target/links-0.0.1-SNAPSHOT.jar .
 
-ENV JAVA_OPTS="-Xms32m -Xmx128m"
+ENV PORT=8081
 
-ENTRYPOINT exec java $JAVA_OPTS -jar links-0.0.1-SNAPSHOT.jar
+EXPOSE 8081
+
+CMD ["java", "-Xms32m", "-Xmx128m", "-jar", "-Dserver.port=${PORT}", "links-0.0.1-SNAPSHOT.jar"]
