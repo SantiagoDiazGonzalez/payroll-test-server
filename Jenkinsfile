@@ -33,12 +33,11 @@ node {
 	   // sh 'heroku container:release web --app=rocky-brushlands-25964'
 	   sh 'curl -n -X PATCH https://api.heroku.com/apps//formation \
         -d '{
-			"updates": [
+			"updates":
 			{
 			"type": "web",
 			"docker_image": "0350fc97ea0d301c9292b5cc0a57522e4812d8c72bbb456e673af5d63ae3e00a"
 			},
-			]
 		}' \
 		-H "Content-Type: application/json" \
 		-H "Accept: application/vnd.heroku+json; version=3.docker-releases"'
