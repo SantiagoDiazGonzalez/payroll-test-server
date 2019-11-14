@@ -37,7 +37,6 @@ class CustomerController {
 	}
 	// end::constructor[]
 
-	// Aggregate root
 
 	@GetMapping("/customers")
 	Resources<Resource<Customer>> all() {
