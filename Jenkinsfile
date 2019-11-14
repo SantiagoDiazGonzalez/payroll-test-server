@@ -26,21 +26,9 @@ node {
       //junit '**/target/surefire-reports/TEST-*.xml'
    }
    stage('Deploy') {
-     withCredentials([usernamePassword(credentialsId: 'herokuCredentials', passwordVariable: 'password', usernameVariable: 'user')]) {
-		sh 'heroku login'
-		sh 'echo ${user}'
-		sh 'echo ${password}'
-		sh 'heroku container:push web --app=rocky-brushlands-25964'
-		//sh 'echo ${user}'
-		//sh 'echo ${password}'
-		sh 'heroku container:release web --app=rocky-brushlands-25964'
-		//sh 'echo ${user}'
-		//sh 'echo ${password}'
-        }
-      //def heroku_auth = 29c64bd7-9da5-4f06-8cff-51cd7f6ae6b4
-      //sh 'docker login --username=_ --password=29c64bd7-9da5-4f06-8cff-51cd7f6ae6b4 registry.heroku.com'
-      //sh 'heroku container:push web --app=rocky-brushlands-25964'
-	  //sh 'docker push registry.heroku.com/rocky-brushlands-25964'
-	  //sh 'heroku container:release web --app=rocky-brushlands-25964'
+     docker.withRegistry('registry.heroku.com', 'herokuCredentials') {
+	   sh 'docker tag santiagodiazgonzalez/payroll-santiago registry.heroku.com/rocky-brushlands-25964/web'
+	   sh 'docker push registry.heroku.com/rocky-brushlands-25964/web'
+	 }
    }
 }
