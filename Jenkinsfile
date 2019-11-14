@@ -1,6 +1,7 @@
 node {
    def mvnHome
    def image
+   def heroku_auth = 29c64bd7-9da5-4f06-8cff-51cd7f6ae6b4
    stage('Preparation') {
       git 'https://github.com/SantiagoDiazGonzalez/payroll-test-server.git'
       mvnHome = tool 'M3'
@@ -26,7 +27,7 @@ node {
       //junit '**/target/surefire-reports/TEST-*.xml'
    }
    stage('Deploy') {
-      sh 'docker login --username=_ --password=$HEROKU_AUTH_TOKEN_VAR registry.heroku.com'
+      sh 'docker login --username=_ --password=${heroku_auth} registry.heroku.com'
       sh 'heroku container:push web --app=rocky-brushlands-25964'
 	  sh 'heroku container:release web --app=rocky-brushlands-25964'
    }
