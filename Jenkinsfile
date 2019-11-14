@@ -25,4 +25,8 @@ node {
       archiveArtifacts 'server/target/*.jar'
       junit '**/target/surefire-reports/TEST-*.xml'
    }
+   stage('Deploy') {
+      sh 'heroku container:push web --app=rocky-brushlands-25964'
+	  sh 'heroku container:release web --app=rocky-brushlands-25964'
+   }
 }
