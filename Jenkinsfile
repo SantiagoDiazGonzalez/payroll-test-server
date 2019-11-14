@@ -21,10 +21,6 @@ node {
 	   image.push()
 	 }
    }
-   stage('Results') {
-      archiveArtifacts 'server/target/*.jar'
-      junit '**/target/surefire-reports/TEST-*.xml'
-   }
    stage('Push to deploy') {
      withCredentials([usernamePassword(credentialsId: 'herokuCredentials', passwordVariable: 'password', usernameVariable: 'user')]) {
 	   sh 'docker login --username=_ --password=${password} registry.heroku.com'
@@ -33,4 +29,12 @@ node {
 	   //sh 'heroku container:release web --app=rocky-brushlands-25964'
     }
   }
+  //stage('Integration test') {
+  //  sh 'cd payroll/server/src/test/payroll-test && npx codeceptjs run --steps --reporter mocha-multi'
+  //}
+  stage('Results') {
+      archiveArtifacts 'server/target/*.jar'
+      junit '**/target/surefire-reports/TEST-*.xml'
+	  // junit 'server/src/test/payroll-test/output/result.xml'
+   }
 }
