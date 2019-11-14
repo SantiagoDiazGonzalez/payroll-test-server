@@ -27,12 +27,13 @@ node {
    }
    stage('Deploy') {
      withCredentials([usernamePassword(credentialsId: 'herokuCredentials', passwordVariable: 'password', usernameVariable: 'user')]) {
+		sh 'heroku container:login'
 		sh 'heroku container:push web --app=rocky-brushlands-25964'
-		sh 'echo ${user}'
-		sh 'echo ${password}'
+		//sh 'echo ${user}'
+		//sh 'echo ${password}'
 		sh 'heroku container:release web --app=rocky-brushlands-25964'
-		sh 'echo ${user}'
-		sh 'echo ${password}'
+		//sh 'echo ${user}'
+		//sh 'echo ${password}'
         }
       //def heroku_auth = 29c64bd7-9da5-4f06-8cff-51cd7f6ae6b4
       //sh 'docker login --username=_ --password=29c64bd7-9da5-4f06-8cff-51cd7f6ae6b4 registry.heroku.com'
